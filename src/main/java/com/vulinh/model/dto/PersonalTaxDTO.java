@@ -1,4 +1,4 @@
-package com.vulinh.dto;
+package com.vulinh.model.dto;
 
 import java.util.Map;
 import lombok.Builder;

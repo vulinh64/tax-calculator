@@ -1,20 +1,19 @@
 package com.vulinh.mapper;
 
-import com.vulinh.dto.InsuranceDTO;
-import com.vulinh.dto.PersonalTaxDTO;
-import com.vulinh.dto.TaxDetailDTO;
-import com.vulinh.model.Insurance;
-import com.vulinh.model.PersonalTax;
-import com.vulinh.model.TaxDetail;
+import com.vulinh.model.dto.InsuranceDTO;
+import com.vulinh.model.dto.PersonalTaxDTO;
+import com.vulinh.model.dto.TaxDetailDTO;
+import com.vulinh.model.record.Insurance;
+import com.vulinh.model.record.PersonalTax;
+import com.vulinh.model.record.TaxDetail;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(builder = @Builder(disableBuilder = true))
+@Mapper
 public interface TaxMapper {
 
   TaxMapper INSTANCE = Mappers.getMapper(TaxMapper.class);

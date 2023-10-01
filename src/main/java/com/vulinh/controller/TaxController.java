@@ -1,7 +1,7 @@
 package com.vulinh.controller;
 
-import com.vulinh.dto.TaxDetailDTO;
-import com.vulinh.model.TaxDetail;
+import com.vulinh.model.dto.TaxDetailDTO;
+import com.vulinh.model.record.TaxDetail;
 import com.vulinh.service.TaxService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.vulinh.model;
+package com.vulinh.model.record;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;

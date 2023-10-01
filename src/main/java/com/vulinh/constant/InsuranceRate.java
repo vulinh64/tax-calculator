@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @RequiredArgsConstructor
 @Getter
 @Accessors(fluent = true)
-public enum TaxRate {
+public enum InsuranceRate {
   SOCIAL_INSURANCE(0.08),
   HEALTH_INSURANCE(0.015),
   UNEMPLOYMENT_INSURANCE(0.01);

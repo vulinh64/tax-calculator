@@ -1,8 +1,8 @@
 package com.vulinh.service;
 
-import com.vulinh.dto.TaxDetailDTO;
+import com.vulinh.model.dto.TaxDetailDTO;
 import com.vulinh.mapper.TaxMapper;
-import com.vulinh.model.TaxDetail;
+import com.vulinh.model.record.TaxDetail;
 import com.vulinh.utils.TaxUtils;
 import org.springframework.stereotype.Service;
 

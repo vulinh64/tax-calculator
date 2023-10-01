@@ -28,7 +28,7 @@ public enum TaxLevel {
   private static final Map<Integer, TaxLevel> MAPS =
       Arrays.stream(values()).collect(Collectors.toMap(TaxLevel::ordinal, Function.identity()));
 
-  public static TaxLevel getTaxLevel(int taxLevel) {
+  public static TaxLevel parseTaxLevel(int taxLevel) {
     return Optional.ofNullable(MAPS.get(taxLevel))
         .orElseThrow(() -> new IllegalArgumentException("taxLevel = %d".formatted(taxLevel)));
   }
