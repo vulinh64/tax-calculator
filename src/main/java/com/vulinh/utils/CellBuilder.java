@@ -4,21 +4,24 @@ import java.util.Objects;
 import lombok.*;
 import org.apache.poi.ss.usermodel.*;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class CellBuilder {
+public class CellBuilder implements AutoCloseable {
 
-  private CellStyle thinStyle;
-  private Font defaultFont;
+  private final int sheetIndex;
+
+  private Workbook workbook;
+
+  private CellStyle cellStyle;
+  private Font font;
+
   private short defaultDataFormat = -1;
 
-  private final Workbook workbook;
-  private final Sheet sheet;
-
-  public static CellBuilder init(@NonNull Workbook workbook, @NonNull Sheet sheet) {
-    return new CellBuilder(workbook, sheet);
+  public static CellBuilder init(@NonNull Workbook workbook, int sheetIndex) {
+    return new CellBuilder(workbook, sheetIndex);
   }
 
   public Cell newCell(int rowNumber, int cellNumber) {
+    var sheet = workbook.getSheetAt(sheetIndex);
+
     var cell = sheet.getRow(rowNumber).createCell(cellNumber);
 
     cell.setCellStyle(thinCellStyle());
@@ -26,29 +29,34 @@ public class CellBuilder {
     return cell;
   }
 
+  public CellBuilder(Workbook workbook, int sheetIndex) {
+    this.workbook = workbook;
+    this.sheetIndex = sheetIndex;
+  }
+
   private CellStyle thinCellStyle() {
-    if (Objects.isNull(thinStyle)) {
-      thinStyle = workbook.createCellStyle();
-      thinStyle.setBorderBottom(BorderStyle.THIN);
-      thinStyle.setBorderTop(BorderStyle.THIN);
-      thinStyle.setBorderLeft(BorderStyle.THIN);
-      thinStyle.setBorderRight(BorderStyle.THIN);
-      thinStyle.setFont(defaultFont());
-      thinStyle.setAlignment(HorizontalAlignment.CENTER);
-      thinStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-      thinStyle.setDataFormat(defaultDataFormat());
+    if (Objects.isNull(cellStyle)) {
+      cellStyle = workbook.createCellStyle();
+      cellStyle.setBorderBottom(BorderStyle.THIN);
+      cellStyle.setBorderTop(BorderStyle.THIN);
+      cellStyle.setBorderLeft(BorderStyle.THIN);
+      cellStyle.setBorderRight(BorderStyle.THIN);
+      cellStyle.setFont(defaultFont());
+      cellStyle.setAlignment(HorizontalAlignment.CENTER);
+      cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+      cellStyle.setDataFormat(defaultDataFormat());
     }
 
-    return thinStyle;
+    return cellStyle;
   }
 
   private Font defaultFont() {
-    if (Objects.isNull(defaultFont)) {
-      defaultFont = workbook.createFont();
-      defaultFont.setFontHeightInPoints((short) 15);
+    if (Objects.isNull(font)) {
+      font = workbook.createFont();
+      font.setFontHeightInPoints((short) 15);
     }
 
-    return defaultFont;
+    return font;
   }
 
   private short defaultDataFormat() {
@@ -57,5 +65,12 @@ public class CellBuilder {
     }
 
     return defaultDataFormat;
+  }
+
+  @Override
+  public void close() {
+    workbook = null;
+    font = null;
+    cellStyle = null;
   }
 }

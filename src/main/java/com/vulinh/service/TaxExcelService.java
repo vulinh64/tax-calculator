@@ -41,13 +41,11 @@ public class TaxExcelService {
   @SneakyThrows
   private void exportExcel(TaxDetail taxDetail, HttpServletResponse httpServletResponse) {
     try (var inputStream = new FileInputStream(ResourceUtils.getFile("classpath:template.xlsx"));
-        var workbook = new XSSFWorkbook(inputStream)) {
-      var sheet = workbook.getSheetAt(0);
+        var workbook = new XSSFWorkbook(inputStream);
+        var cellBuilder = CellBuilder.init(workbook, 0)) {
 
       // Row count
       var count = new AtomicInteger(1);
-
-      var cellBuilder = CellBuilder.init(workbook, sheet);
 
       // Tổng thu nhập
       cellBuilder
