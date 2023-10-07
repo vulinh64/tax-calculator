@@ -1,6 +1,6 @@
 package com.vulinh.security.properties;
 
-import com.vulinh.security.JwtPayload;
+import com.vulinh.utils.JwtPayload;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serial;
 import lombok.EqualsAndHashCode;

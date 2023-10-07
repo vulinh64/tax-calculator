@@ -5,7 +5,6 @@ import static com.vulinh.constant.result.ResultResult.UNKNOWN_ERROR;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.vulinh.exception.ValidationException;
-import com.vulinh.security.JwtPayload;
 import com.vulinh.security.properties.SecurityConfigProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.DecodingException;

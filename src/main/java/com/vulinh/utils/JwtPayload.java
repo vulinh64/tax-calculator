@@ -1,4 +1,4 @@
-package com.vulinh.security;
+package com.vulinh.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -18,11 +18,7 @@ public record JwtPayload(
     Collection<String> roles)
     implements Serializable {
 
-  public JwtPayload(
-      @JsonProperty("sub") String subject,
-      @JsonProperty("aud") Object audience,
-      @JsonProperty("iss") String issuer,
-      Collection<String> roles) {
+  public JwtPayload(String subject, Object audience, String issuer, Collection<String> roles) {
     this.subject = subject;
     this.audience = audience;
     this.issuer = issuer;
