@@ -1,1 +1,17 @@
-
+spring.security.jwt:
+  public-key: ${PUBLIC_KEY}
+  private-key: ${PRIVATE_KEY}
+  no-authenticated-urls:
+    - /health
+    - /v3/api-docs/**
+    - /swagger-ui.html
+    - /swagger-ui/**
+  no-filter-urls:
+    - /health
+    - /v3/api-docs
+    - /swagger-ui.html
+    - /swagger-ui
+management:
+  endpoints.web:
+    base-path: ''
+    exposure.include: health
