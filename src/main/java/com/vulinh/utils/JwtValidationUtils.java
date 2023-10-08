@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class JwtUtils {
+public class JwtValidationUtils {
 
   public JwtPayload validate(String token) {
     if (StringUtils.isBlank(token)) {
@@ -55,12 +55,12 @@ public class JwtUtils {
       if (Objects.isNull(jwtParser)) {
         var properties = StaticContextAccessor.getBean(SecurityConfigProperties.class);
 
-        var publicKey = SecurityUtils.generatePublicKey(properties.publicKey(), "RSA");
+        var publicKey = SecurityUtils.generatePublicKey(properties.publicKey());
 
         jwtParser =
             Jwts.parserBuilder()
                 .setSigningKey(publicKey)
-                .deserializeJsonWith(JwtUtils::deserialize)
+                .deserializeJsonWith(JwtValidationUtils::deserialize)
                 .build();
       }
 

@@ -4,7 +4,7 @@ import com.vulinh.constant.result.JwtResult;
 import com.vulinh.exception.ValidationException;
 import com.vulinh.security.properties.CustomAuthentication;
 import com.vulinh.security.properties.SecurityConfigProperties;
-import com.vulinh.utils.JwtUtils;
+import com.vulinh.utils.JwtValidationUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,11 +28,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
   private final HandlerExceptionResolver handlerExceptionResolver;
   private final SecurityConfigProperties securityConfigProperties;
-  private final JwtUtils jwtUtils;
+  private final JwtValidationUtils jwtValidationUtils;
 
   @Override
   protected void doFilterInternal(
-      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      HttpServletRequest request, @NonNull HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     try {
       var authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -41,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
               .map(token -> token.startsWith("Bearer") ? token.substring(7) : token)
               .orElseThrow(() -> new ValidationException(JwtResult.EMPTY_AUTHORIZATION));
 
-      var jwtPayload = jwtUtils.validate(bearerToken);
+      var jwtPayload = jwtValidationUtils.validate(bearerToken);
 
       var authentication = new CustomAuthentication(jwtPayload, request);
 
@@ -54,7 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
   }
 
   @Override
-  protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+  protected boolean shouldNotFilter(HttpServletRequest request) {
     var path = request.getServletPath();
 
     for (var noFilterUrl : securityConfigProperties.noFilterUrls()) {

@@ -1,4 +1,6 @@
 spring.security.jwt:
+  jwt-duration: 15m
+  default-issuer: 'vulinh'
   public-key: ${PUBLIC_KEY}
   private-key: ${PRIVATE_KEY}
   no-authenticated-urls:
@@ -6,11 +8,13 @@ spring.security.jwt:
     - /v3/api-docs/**
     - /swagger-ui.html
     - /swagger-ui/**
+    - /auth/**
   no-filter-urls:
     - /health
     - /v3/api-docs
     - /swagger-ui.html
     - /swagger-ui
+    - /auth
 management:
   endpoints.web:
     base-path: ''
