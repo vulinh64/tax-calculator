@@ -1,20 +1,28 @@
-spring.security.jwt:
-  jwt-duration: 15m
-  default-issuer: 'vulinh'
-  public-key: ${PUBLIC_KEY}
-  private-key: ${PRIVATE_KEY}
-  no-authenticated-urls:
-    - /health
-    - /v3/api-docs/**
-    - /swagger-ui.html
-    - /swagger-ui/**
-    - /auth/**
-  no-filter-urls:
-    - /health
-    - /v3/api-docs
-    - /swagger-ui.html
-    - /swagger-ui
-    - /auth
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase-changelog.xml
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${USERNAME}
+    password: ${PASSWORD}
+  security.jwt:
+    jwt-duration: 15m
+    default-issuer: 'vulinh'
+    public-key: ${PUBLIC_KEY}
+    private-key: ${PRIVATE_KEY}
+    no-authenticated-urls:
+      - /health
+      - /v3/api-docs/**
+      - /swagger-ui.html
+      - /swagger-ui/**
+      - /auth/**
+    no-filter-urls:
+      - /health
+      - /v3/api-docs
+      - /swagger-ui.html
+      - /swagger-ui
+      - /auth
 management:
   endpoints.web:
     base-path: ''
