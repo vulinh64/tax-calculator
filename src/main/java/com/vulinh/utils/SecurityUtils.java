@@ -1,5 +1,8 @@
 package com.vulinh.utils;
 
+import static com.vulinh.constant.result.JwtResult.ENCODING_ERROR;
+
+import com.vulinh.exception.ValidationException;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -29,30 +32,26 @@ public class SecurityUtils {
       log.info("Using RSA as default algorithm for KeyFactory");
       KEY_FACTORY = KeyFactory.getInstance("RSA");
     } catch (Exception exception) {
-      throw new ExceptionInInitializerError(exception);
+      log.info("Initializing key factory failed", exception);
+      throw new ValidationException(ENCODING_ERROR);
     }
   }
 
-  private static PublicKey singletonPublicKey;
   private static PrivateKey singletonPrivateKey;
 
   @SneakyThrows
   public static PublicKey generatePublicKey(String rawPublicKey) {
-    if (Objects.isNull(singletonPublicKey)) {
-      // Remove header and footer if they are present
-      // Also remove any whitespace character (\n, \r, space)
-      var refinedPrivateKey =
-          StringUtils.deleteWhitespace(
-              rawPublicKey
-                  .replace(BEGIN_PUBLIC_KEY, StringUtils.EMPTY)
-                  .replace(END_PUBLIC_KEY, StringUtils.EMPTY));
+    // Remove header and footer if they are present
+    // Also remove any whitespace character (\n, \r, space)
+    var refinedPrivateKey =
+        StringUtils.deleteWhitespace(
+            rawPublicKey
+                .replace(BEGIN_PUBLIC_KEY, StringUtils.EMPTY)
+                .replace(END_PUBLIC_KEY, StringUtils.EMPTY));
 
-      var keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(refinedPrivateKey));
+    var keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(refinedPrivateKey));
 
-      singletonPublicKey = KEY_FACTORY.generatePublic(keySpec);
-    }
-
-    return singletonPublicKey;
+    return KEY_FACTORY.generatePublic(keySpec);
   }
 
   @SneakyThrows

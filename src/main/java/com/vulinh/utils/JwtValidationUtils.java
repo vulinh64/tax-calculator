@@ -1,7 +1,7 @@
 package com.vulinh.utils;
 
 import static com.vulinh.constant.result.JwtResult.*;
-import static com.vulinh.constant.result.ResultResult.UNKNOWN_ERROR;
+import static com.vulinh.constant.result.CommonResponseResult.UNKNOWN_ERROR;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.vulinh.exception.ValidationException;

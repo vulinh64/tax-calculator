@@ -2,7 +2,7 @@ package com.vulinh.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.vulinh.constant.result.ResultResult;
+import com.vulinh.constant.result.CommonResponseResult;
 import com.vulinh.utils.BaseErrorResult;
 import lombok.Builder;
 import lombok.With;
@@ -13,12 +13,8 @@ import org.springframework.lang.Nullable;
 @JsonInclude(Include.NON_NULL)
 public record GeneralResponse<T>(String errorCode, String message, T data) {
 
-  public static <T> GeneralResponse<T> success() {
-    return success(null);
-  }
-
   public static <T> GeneralResponse<T> success(T data) {
-    return of(ResultResult.OK, data);
+    return of(CommonResponseResult.OK, data);
   }
 
   public static GeneralResponse<Object> error(BaseErrorResult baseErrorResult) {

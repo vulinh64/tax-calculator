@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(fluent = true)
 @RequiredArgsConstructor
-public enum ResultResult implements BaseErrorResult {
+public enum CommonResponseResult implements BaseErrorResult {
   OK("000", ""),
   UNKNOWN_ERROR("500", "Unknown error, please refer to log for more detail");
 

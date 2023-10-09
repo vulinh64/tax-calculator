@@ -15,7 +15,8 @@ public enum JwtResult implements BaseErrorResult {
   MALFORMED("4003", "Bad token format"),
   UNSUPPORTED("4004", "Unsupported algorithm"),
   SIGNATURE_ERROR("4005", "Unmatched signature"),
-  DECODING_ERROR("4006", "JWT Decoding error"),
+  DECODING_ERROR("4006A", "JWT Decoding error"),
+  ENCODING_ERROR("4006B", "JWT Encoding error"),
   TOO_SOON("4007", "Too soon to gain access");
 
   private final String errorCode;
