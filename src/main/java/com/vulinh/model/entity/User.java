@@ -4,12 +4,13 @@ import com.vulinh.utils.JPAIdentifiable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
-
 import java.io.Serial;
+import lombok.*;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "user")
+@Where(clause = "is_disabled is null or is_disabled = false")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
